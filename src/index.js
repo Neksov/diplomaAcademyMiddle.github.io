@@ -14,6 +14,9 @@ import browser from 'cross-browser-polyfill';
 browser();
 
 import togglePopUp from './modules/togglePopUp';
+import slider from './modules/slider';
+
 //popup
 togglePopUp();
 
+slider();
