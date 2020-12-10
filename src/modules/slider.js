@@ -1,6 +1,5 @@
 const slider = () =>{
-  const slide = document.querySelectorAll('.slide'),
-        mainSlider = document.querySelector('.main-slider');
+  const slider = document.querySelectorAll('.slider');
 
   let currentSlide = 0,
       interval;
@@ -14,20 +13,17 @@ const slider = () =>{
   };
 
   const autoPlaySlide = () =>{
-    prevSlide(slide, currentSlide);
+    prevSlide(slider, currentSlide);
 
     currentSlide++;
-    if(currentSlide >= slide.length){
+    if(currentSlide >= slider.length){
       currentSlide = 0;
     }
-
-    nextSlide(slide, currentSlide);
+    nextSlide(slider, currentSlide);
   };
-
-  const startSlide = (time = 3000) =>{
+  const startSlide = (time = 5000) =>{
     interval = setInterval(autoPlaySlide, time);//счетчик 
   };
-
   startSlide();
 };
 export default slider;

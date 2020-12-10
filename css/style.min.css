@@ -1297,7 +1297,8 @@ nav.popup-menu .close-menu-btn img {
 
 .main-slider {
   height: 100%;
-  max-height: 541px
+  max-height: 541px;
+  padding-top: 80px;
 }
 
 .main-slider .slide {
@@ -1317,7 +1318,6 @@ nav.popup-menu .close-menu-btn img {
 }
 
 .main-slider .slide .slide-text .offer-head {
-  margin-top: 80px;
   background: url(../images/slider-offer-bg.png) no-repeat 10px 0;
   padding-top: 20px
 }
