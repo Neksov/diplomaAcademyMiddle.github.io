@@ -16,6 +16,7 @@ browser();
 import togglePopUp from './modules/togglePopUp';
 import countDot from './modules/countDot';
 import slider from './modules/slider';
+import form from './modules/form';
 
 //popup
 togglePopUp();
@@ -23,3 +24,5 @@ togglePopUp();
 countDot();
 
 slider();
+
+form();

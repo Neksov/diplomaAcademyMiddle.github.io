@@ -2277,6 +2277,14 @@ p.personal-data input[type=checkbox]:checked+label:before {
   margin-top: 30px
 }
 
+.sk-spinner-pulse {
+  width: 3em;
+  height: 3em;
+  margin: auto;
+  background-color: #19b5fe;
+  border-radius: 100%;
+  animation: sk-spinner-pulse 1.0s infinite ease-in-out;
+}
 @media only screen and (max-width:1199px) {
   .services-slider .slider-arrow.prev {
     left: 25px
