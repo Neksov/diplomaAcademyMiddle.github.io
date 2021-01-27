@@ -61,7 +61,6 @@ const form = () =>{
 
     //form
     form.forEach((elem) =>{
-        // if(elem === bannerForm || elem === cardOrder || elem === form1 || elem === form2){
             elem.addEventListener('submit',(event)=>{
                 event.preventDefault();//отменяем стандарное поведение браузера
     
@@ -115,7 +114,6 @@ const form = () =>{
                     elem.value = '';
                 });
             });
-        // }
     });
 
     const postData = (body) =>{
