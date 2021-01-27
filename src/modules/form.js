@@ -61,7 +61,7 @@ const form = () => {
 
     //form
     form.forEach((elem) => {
-        elem.addEventListener('submit', (event) => {
+        elem.addEventListener('submit', (event) => {///////ововововово
             event.preventDefault();//отменяем стандарное поведение браузера
 
             const inputPhone = elem.querySelector('input[type="tel"]'),
