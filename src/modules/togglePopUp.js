@@ -4,8 +4,8 @@ const togglePopUp = () =>{
         callbackForm = document.getElementById('callback_form'),
         freeVisitForm = document.getElementById('free_visit_form'),
         gift = document.getElementById('gift'),
+        thanksPopup = document.getElementById('thanks'),
         fixedGift = document.querySelector('.fixed-gift');
-
         clubsList.classList.add('active');//добавляем класс к списку выбора клуба
         
 //реализация нажатия кнопки выбора зала
@@ -24,14 +24,13 @@ const togglePopUp = () =>{
           }else if(event.target.closest('.fixed-gift')){
             gift.style.display = 'block';
             fixedGift.style.display = 'none';
-          }else if(event.target.closest('.close-form') || !event.target.closest('.form-wrapper')){
+          }else if(event.target.closest('.close-form') || !event.target.closest('.form-wrapper') || event.target.closest('.close-btn')){
             callbackForm.style.display = 'none';
             freeVisitForm.style.display = 'none';
-          if(event.target.closest('#gift')){
+            thanksPopup.style.display = 'none';
+            if(event.target.closest('#gift')){
               gift.style.display = 'none';
             }
-          }else if(event.target.closest('.close-btn')){
-            gift.style.display = 'none';
           }
   });
 };

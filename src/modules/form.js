@@ -1,11 +1,15 @@
 const form = () =>{
 
-    const check = document.querySelectorAll('input[type="checkbox"]'),
-        buttonSubmit = document.querySelectorAll('button[type="submit"]'),
+    const checkAll = document.querySelectorAll('input[type="checkbox"]'),
+        buttonSubmit = document.querySelector('button[name="send"]'),
         input = document.querySelectorAll('input'),
         name = document.querySelectorAll('input[name="name"]'),
-        phone = document.querySelectorAll('input[name="phone"]'),
-        form = document.querySelectorAll('form');
+        phone = document.querySelectorAll('input[type="tel"]'),
+        form = document.querySelectorAll('form'),
+        popup = document.querySelector('.popup'),
+        footerLetoAll = document.querySelectorAll('input[type="radio"]'),
+        thanksBtn = document.querySelector('.thanks-btn'),
+        thanksPopup = document.getElementById('thanks');
 
     let errorMessage = 'Что-то пошло не так...',
         successMessage = 'Спасибо! Мы скоро с вами свяжемся!',
@@ -27,78 +31,91 @@ const form = () =>{
         });
     });
 
-    //checkbox
-    check.forEach((elem)=>{
+    //проверка checkbox 
+    checkAll.forEach((elem)=>{
         elem.setAttribute('checked', 'true'); //устанавливаем true на все checkbox согласия.
-        elem.addEventListener('click', (event)=>{
-        if(event.target.checked){ //проверка на true 
-                // buttonSubmit.removeAttribute('disabled')
-            }else{
+        elem.addEventListener('click', (el) => {
+            console.log(el.target)
+            if ( !el.checked ) {
+                buttonSubmit.removeAttribute('disabled', true);//блокируем кнопку
                 alert("Подтвердите согласие на обработку данных");
-                // buttonSubmit.setAttribute('disabled', 'true' );
             }
         });
+    });
+    
+    footerLetoAll.forEach((elem, i) =>{
+        elem.addEventListener('click', (event) =>{
+            console.log(event.target)
+        
+        })
     });
 
     //таймаут
     let timeOut = () => {
         setTimeout(() => {
             statusMessage.remove();
-            // popup.style.display = 'none';//закрываем модалку
+            popup.style.display = 'none';//закрываем модалку
+            thanksPopup.style.display = 'block';//открываем окно благодарности
         }, 3000);
     };
 
     //form
     form.forEach((elem) =>{
-        elem.addEventListener('submit',(event)=>{
-            event.preventDefault();//отменяем стандарное поведение браузера
-
-            elem.appendChild(statusMessage);// добавляем элемент на страницу    
-            elem.appendChild(load);// добавляем элемент на страницу
+        // if(elem === bannerForm || elem === cardOrder || elem === form1 || elem === form2){
+            elem.addEventListener('submit',(event)=>{
+                event.preventDefault();//отменяем стандарное поведение браузера
     
-            
-            load.classList.add('sk-spinner-pulse');//вывод сообщения загрузка
-
-            phone.forEach((elem)=>{
-                if(!elem.value.match(/[0-9+]{7,13}/ig)) {
+                const inputPhone = elem.querySelector('input[type="tel"]'),
+                        footerLeto = elem.querySelectorAll('input[type="radio"]');
+                        
+                elem.appendChild(statusMessage);// добавляем элемент на страницу    
+                elem.appendChild(load);// добавляем элемент на страницу
+        
+                load.classList.add('sk-spinner-pulse');//вывод сообщения загрузка
+    
+                //проверка введеного телефона
+                if(!inputPhone.value.match(/[0-9+]{7,13}/ig)) { 
+                    console.log(event.target)
                     alert('Номер введен не верно');
                     statusMessage.remove();//удаляем сообщение под формой
+                    load.remove();
                     return;
-                }
-            });
-            
-            const formData = new FormData(elem);//создаем экземпляр класса и в эту функцию передаем форму с которой получаем данные
-            let body = {}; //обект в который помещаем наши данные
+                };
 
-            //для отправки JSON перебираем и записываем каждый цикл
-            formData.forEach((val, key) =>{
-                body[key] = val;
+                const formData = new FormData(elem);//создаем экземпляр класса и в эту функцию передаем форму с которой получаем данные
+                let body = {}; //обект в который помещаем наши данные
+    
+                //для отправки JSON перебираем и записываем каждый цикл
+                formData.forEach((val, key) =>{
+                    body[key] = val;
+                });
+    
+                postData(body) 
+                    .then((response) =>{
+                        if(response.status !==200){
+                            throw new Error('status network not 200');
+                        }
+                        statusMessage.textContent = successMessage;
+                        load.remove(load);//удаляем прилоадер
+                        timeOut();
+                        popup.style.display = 'none';
+                    })
+                    .catch((error) =>{
+                        statusMessage.textContent = errorMessage;
+                        load.remove(load);//удаляем прилоадер
+                        timeOut();
+                        console.error(error);
+                });
+    
+                //очищаем поля после отправки
+                name.forEach((elem)=>{
+                    elem.value = '';
+                });
+                phone.forEach((elem)=>{
+                    elem.value = '';
+                });
             });
-
-            postData(body) 
-                .then((response) =>{
-                    if(response.status !==200){
-                        throw new Error('status network not 200');
-                    }
-                    statusMessage.textContent = successMessage;
-                    load.remove(load);//удаляем прилоадер
-                    timeOut();
-                })
-                .catch((error) =>{
-                    statusMessage.textContent = errorMessage;
-                    load.remove(load);//удаляем прилоадер
-                    timeOut();
-            console.error(error); 
-            });
-
-
-            name.forEach((elem)=>{
-                elem.value = '';
-            });
-            phone.forEach((elem)=>{
-                elem.value = '';
-            });
-        });
+        // }
     });
 
     const postData = (body) =>{
