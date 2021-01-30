@@ -2,7 +2,7 @@
 
 import 'nodelist-foreach-polyfill';
 import "@babel/polyfill";
-import elementClosest from  'element-closest';
+import elementClosest from 'element-closest';
 elementClosest(window);
 import 'formdata-polyfill';
 import 'es6-promise';
@@ -15,14 +15,17 @@ browser();
 
 import togglePopUp from './modules/togglePopUp';
 import countDot from './modules/countDot';
-import slider from './modules/slider';
+import sliderMain from './modules/sliderMain';
 import form from './modules/form';
+import sliderGallery from './modules/sliderGallery';
 
 //popup
 togglePopUp();
 
 countDot();
 
-slider();
+sliderMain();
 
 form();
+
+sliderGallery();

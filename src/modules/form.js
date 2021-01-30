@@ -33,22 +33,22 @@ const form = () => {
 
     //проверка checkbox 
     checkAll.forEach((elem) => {
-        elem.setAttribute('checked', 'true'); //устанавливаем true на все checkbox согласия.
+        elem.setAttribute('checked', 'true'); //устанавливаем checked на все checkbox согласия.
         elem.addEventListener('click', (el) => {
             console.log(el.target)
-            if (!el.checked) {
+            if (!el.checked === true) {
                 buttonSubmit.removeAttribute('disabled', true);//блокируем кнопку
                 alert("Подтвердите согласие на обработку данных");
             }
         });
     });
 
-    footerLetoAll.forEach((elem, i) => {
-        elem.addEventListener('click', (event) => {
-            console.log(event.target)
+    // footerLetoAll.forEach((elem, i) => {
+    //     elem.addEventListener('click', (event) => {
+    //         console.log(event.target)
 
-        })
-    });
+    //     })
+    // });
 
     //таймаут
     let timeOut = () => {
